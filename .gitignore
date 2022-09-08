@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+# CMake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+Makefile
+
+# Executable
+alpha_complex_periodic_persistence
+
 # Distribution / packaging
 .Python
 build/
