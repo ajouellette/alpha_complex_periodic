@@ -4,6 +4,7 @@
 #include <limits>
 #include <random>
 #include <cmath>
+#include <cstdlib>
 
 #include <gudhi/Alpha_complex_3d.h>
 #include <gudhi/Simplex_tree.h>
@@ -24,7 +25,7 @@ std::vector<typename AlphaComplex3d::Point_3> coords_to_points(const std::vector
     using Point = typename AlphaComplex3d::Point_3;
 
     std::vector<Point> points;
-    for (int i = 0; i < coords.size(); i++) {
+    for (std::size_t i = 0; i < coords.size(); i++) {
         points.push_back(Point(coords[i][0], coords[i][1], coords[i][2]));
     }
 
@@ -64,7 +65,7 @@ std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector
     for (int dim = 0; dim < st_dimension; dim++) {
         pairs_d = pcoh.intervals_in_dimension(dim);
         pairs_d_vec.clear();
-        for (int i = 0; i < pairs_d.size(); i++) {
+        for (std::size_t i = 0; i < pairs_d.size(); i++) {
             // take sqrt to get alpha instead of the filtration value (alpha^2)
             pairs_d_vec.push_back({sqrt(pairs_d[i].first), sqrt(pairs_d[i].second)});
         }
@@ -98,9 +99,9 @@ int main() {
 
     std::vector<std::vector<std::vector<double>>> persistence_pairs = calc_persistence(points, 2, 0.);
 
-        for (int dim = 0; dim < persistence_pairs.size(); dim++) {
+        for (std::size_t dim = 0; dim < persistence_pairs.size(); dim++) {
         std::cout << "H" << dim << std::endl;
-        for (int i = 0; i < persistence_pairs[dim].size(); i++) {
+        for (std::size_t i = 0; i < persistence_pairs[dim].size(); i++) {
             std::cout << "\t" << persistence_pairs[dim][i][0] << "  " << persistence_pairs[dim][i][1] << std::endl;
         }
     }
