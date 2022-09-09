@@ -9,8 +9,8 @@ setup(
                 "alpha_complex_periodic",
                 sources=["alpha_complex_periodic.pyx", "alpha_complex_periodic_persistence.cpp"],
                 language="c++",
-                libraries=["alpha_complex_periodic", "gmp", "mpfr"],
-                extra_link_args=["-L./"]
+                libraries=["gmp", "mpfr"],
+                extra_compile_args=["-O3"]
             )
         )
 )
