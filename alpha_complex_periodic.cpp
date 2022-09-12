@@ -968,46 +968,11 @@ static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int eq
 /* UnicodeEquals.proto */
 static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals);
 
-/* PyFunctionFastCall.proto */
-#if CYTHON_FAST_PYCALL
-#define __Pyx_PyFunction_FastCall(func, args, nargs)\
-    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs);
-#else
-#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
-#endif
-#define __Pyx_BUILD_ASSERT_EXPR(cond)\
-    (sizeof(char [1 - 2*!(cond)]) - 1)
-#ifndef Py_MEMBER_SIZE
-#define Py_MEMBER_SIZE(type, member) sizeof(((type *)0)->member)
-#endif
-  static size_t __pyx_pyframe_localsplus_offset = 0;
-  #include "frameobject.h"
-  #define __Pxy_PyFrame_Initialize_Offsets()\
-    ((void)__Pyx_BUILD_ASSERT_EXPR(sizeof(PyFrameObject) == offsetof(PyFrameObject, f_localsplus) + Py_MEMBER_SIZE(PyFrameObject, f_localsplus)),\
-     (void)(__pyx_pyframe_localsplus_offset = ((size_t)PyFrame_Type.tp_basicsize) - Py_MEMBER_SIZE(PyFrameObject, f_localsplus)))
-  #define __Pyx_PyFrame_GetLocalsplus(frame)\
-    (assert(__pyx_pyframe_localsplus_offset), (PyObject **)(((char *)(frame)) + __pyx_pyframe_localsplus_offset))
-#endif
-
 /* PyObjectCall.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
 #else
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
 #endif
 
 /* PyThreadStateGet.proto */
@@ -1199,6 +1164,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.vector' */
 
+/* Module declarations from 'libcpp' */
+
 /* Module declarations from 'alpha_complex_periodic' */
 static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *); /*proto*/
 static std::vector<std::vector<double> >  __pyx_convert_vector_from_py_std_3a__3a_vector_3c_double_3e___(PyObject *); /*proto*/
@@ -1210,7 +1177,6 @@ extern int __pyx_module_is_main_alpha_complex_periodic;
 int __pyx_module_is_main_alpha_complex_periodic = 0;
 
 /* Implementation of 'alpha_complex_periodic' */
-static PyObject *__pyx_builtin_NotImplementedError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
 static const char __pyx_k_fast[] = "fast";
@@ -1222,22 +1188,22 @@ static const char __pyx_k_exact[] = "exact";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_coords[] = "coords";
 static const char __pyx_k_boxsize[] = "boxsize";
+static const char __pyx_k_boxsize_2[] = "_boxsize";
 static const char __pyx_k_precision[] = "precision";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_coeff_field[] = "coeff_field";
 static const char __pyx_k_min_persistence[] = "min_persistence";
 static const char __pyx_k_calc_persistence[] = "calc_persistence";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_alpha_complex_periodic[] = "alpha_complex_periodic";
 static const char __pyx_k_alpha_complex_periodic_pyx[] = "alpha_complex_periodic.pyx";
 static const char __pyx_k_Invalid_value_for_argument_preci[] = "Invalid value for argument precision";
 static PyObject *__pyx_kp_u_Invalid_value_for_argument_preci;
-static PyObject *__pyx_n_s_NotImplementedError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_alpha_complex_periodic;
 static PyObject *__pyx_kp_s_alpha_complex_periodic_pyx;
 static PyObject *__pyx_n_s_boxsize;
+static PyObject *__pyx_n_s_boxsize_2;
 static PyObject *__pyx_n_s_calc_persistence;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_coeff_field;
@@ -1254,18 +1220,17 @@ static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_u_safe;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSED PyObject *__pyx_self, std::vector<std::vector<double> >  __pyx_v_coords, int __pyx_v_coeff_field, double __pyx_v_min_persistence, PyObject *__pyx_v_precision, PyObject *__pyx_v_boxsize); /* proto */
-static PyObject *__pyx_int_0;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_codeobj__3;
 /* Late includes */
 
-/* "alpha_complex_periodic.pyx":9
+/* "alpha_complex_periodic.pyx":10
  * 
  * 
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     if boxsize is None:
- *         boxsize = 0
+ *     cdef bool fast
+ *     cdef bool exact
  */
 
 /* Python wrapper */
@@ -1336,7 +1301,7 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_persistence") < 0)) __PYX_ERR(0, 9, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_persistence") < 0)) __PYX_ERR(0, 10, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1353,14 +1318,14 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_coords = __pyx_convert_vector_from_py_std_3a__3a_vector_3c_double_3e___(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_coords = __pyx_convert_vector_from_py_std_3a__3a_vector_3c_double_3e___(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
     if (values[1]) {
-      __pyx_v_coeff_field = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_coeff_field == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+      __pyx_v_coeff_field = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_coeff_field == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
     } else {
       __pyx_v_coeff_field = ((int)2);
     }
     if (values[2]) {
-      __pyx_v_min_persistence = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_min_persistence == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+      __pyx_v_min_persistence = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_min_persistence == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
     } else {
       __pyx_v_min_persistence = ((double)0.0);
     }
@@ -1369,7 +1334,7 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_persistence", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 9, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_persistence", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 10, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("alpha_complex_periodic.calc_persistence", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1383,62 +1348,71 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
 }
 
 static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSED PyObject *__pyx_self, std::vector<std::vector<double> >  __pyx_v_coords, int __pyx_v_coeff_field, double __pyx_v_min_persistence, PyObject *__pyx_v_precision, PyObject *__pyx_v_boxsize) {
-  CYTHON_UNUSED int __pyx_v_fast;
-  CYTHON_UNUSED int __pyx_v_exact;
+  bool __pyx_v_fast;
+  bool __pyx_v_exact;
+  double __pyx_v__boxsize;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
-  double __pyx_t_4;
+  double __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
   std::vector<std::vector<std::vector<double> > >  __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_persistence", 0);
-  __Pyx_INCREF(__pyx_v_boxsize);
 
-  /* "alpha_complex_periodic.pyx":10
+  /* "alpha_complex_periodic.pyx":13
+ *     cdef bool fast
+ *     cdef bool exact
+ *     cdef double _boxsize = 0.             # <<<<<<<<<<<<<<
  * 
- * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):
- *     if boxsize is None:             # <<<<<<<<<<<<<<
- *         boxsize = 0
+ *     if boxsize is not None:
+ */
+  __pyx_v__boxsize = 0.;
+
+  /* "alpha_complex_periodic.pyx":15
+ *     cdef double _boxsize = 0.
+ * 
+ *     if boxsize is not None:             # <<<<<<<<<<<<<<
+ *         _boxsize = boxsize
  * 
  */
-  __pyx_t_1 = (__pyx_v_boxsize == Py_None);
+  __pyx_t_1 = (__pyx_v_boxsize != Py_None);
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":11
- * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):
- *     if boxsize is None:
- *         boxsize = 0             # <<<<<<<<<<<<<<
+    /* "alpha_complex_periodic.pyx":16
+ * 
+ *     if boxsize is not None:
+ *         _boxsize = boxsize             # <<<<<<<<<<<<<<
  * 
  *     if precision == "safe":
  */
-    __Pyx_INCREF(__pyx_int_0);
-    __Pyx_DECREF_SET(__pyx_v_boxsize, __pyx_int_0);
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_boxsize); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 16, __pyx_L1_error)
+    __pyx_v__boxsize = __pyx_t_3;
 
-    /* "alpha_complex_periodic.pyx":10
+    /* "alpha_complex_periodic.pyx":15
+ *     cdef double _boxsize = 0.
  * 
- * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):
- *     if boxsize is None:             # <<<<<<<<<<<<<<
- *         boxsize = 0
+ *     if boxsize is not None:             # <<<<<<<<<<<<<<
+ *         _boxsize = boxsize
  * 
  */
   }
 
-  /* "alpha_complex_periodic.pyx":13
- *         boxsize = 0
+  /* "alpha_complex_periodic.pyx":18
+ *         _boxsize = boxsize
  * 
  *     if precision == "safe":             # <<<<<<<<<<<<<<
  *         fast = False
  *         exact = False
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_safe, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_safe, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 18, __pyx_L1_error)
   if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":14
+    /* "alpha_complex_periodic.pyx":19
  * 
  *     if precision == "safe":
  *         fast = False             # <<<<<<<<<<<<<<
@@ -1447,7 +1421,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_fast = 0;
 
-    /* "alpha_complex_periodic.pyx":15
+    /* "alpha_complex_periodic.pyx":20
  *     if precision == "safe":
  *         fast = False
  *         exact = False             # <<<<<<<<<<<<<<
@@ -1456,8 +1430,8 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_exact = 0;
 
-    /* "alpha_complex_periodic.pyx":13
- *         boxsize = 0
+    /* "alpha_complex_periodic.pyx":18
+ *         _boxsize = boxsize
  * 
  *     if precision == "safe":             # <<<<<<<<<<<<<<
  *         fast = False
@@ -1466,156 +1440,130 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
     goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":16
+  /* "alpha_complex_periodic.pyx":21
  *         fast = False
  *         exact = False
  *     elif precision == "fast":             # <<<<<<<<<<<<<<
  *         fast = True
  *         exact = False
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_fast, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (unlikely(__pyx_t_2)) {
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_fast, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":17
+    /* "alpha_complex_periodic.pyx":22
  *         exact = False
  *     elif precision == "fast":
  *         fast = True             # <<<<<<<<<<<<<<
  *         exact = False
- *         raise NotImplementedError()
+ *     elif precision == "exact":
  */
     __pyx_v_fast = 1;
 
-    /* "alpha_complex_periodic.pyx":18
+    /* "alpha_complex_periodic.pyx":23
  *     elif precision == "fast":
  *         fast = True
  *         exact = False             # <<<<<<<<<<<<<<
- *         raise NotImplementedError()
- *     elif precision == "exact":
- */
-    __pyx_v_exact = 0;
-
-    /* "alpha_complex_periodic.pyx":19
- *         fast = True
- *         exact = False
- *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  *     elif precision == "exact":
  *         fast = False
  */
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_v_exact = 0;
 
-    /* "alpha_complex_periodic.pyx":16
+    /* "alpha_complex_periodic.pyx":21
  *         fast = False
  *         exact = False
  *     elif precision == "fast":             # <<<<<<<<<<<<<<
  *         fast = True
  *         exact = False
  */
+    goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":20
+  /* "alpha_complex_periodic.pyx":24
+ *         fast = True
  *         exact = False
- *         raise NotImplementedError()
  *     elif precision == "exact":             # <<<<<<<<<<<<<<
  *         fast = False
  *         exact = True
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_exact, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 20, __pyx_L1_error)
-  if (unlikely(__pyx_t_2)) {
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_exact, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (likely(__pyx_t_2)) {
 
-    /* "alpha_complex_periodic.pyx":21
- *         raise NotImplementedError()
+    /* "alpha_complex_periodic.pyx":25
+ *         exact = False
  *     elif precision == "exact":
  *         fast = False             # <<<<<<<<<<<<<<
  *         exact = True
- *         raise NotImplementedError()
+ *     else:
  */
     __pyx_v_fast = 0;
 
-    /* "alpha_complex_periodic.pyx":22
+    /* "alpha_complex_periodic.pyx":26
  *     elif precision == "exact":
  *         fast = False
  *         exact = True             # <<<<<<<<<<<<<<
- *         raise NotImplementedError()
- *     else:
- */
-    __pyx_v_exact = 1;
-
-    /* "alpha_complex_periodic.pyx":23
- *         fast = False
- *         exact = True
- *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  *     else:
  *         raise ValueError("Invalid value for argument precision")
  */
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_v_exact = 1;
 
-    /* "alpha_complex_periodic.pyx":20
+    /* "alpha_complex_periodic.pyx":24
+ *         fast = True
  *         exact = False
- *         raise NotImplementedError()
  *     elif precision == "exact":             # <<<<<<<<<<<<<<
  *         fast = False
  *         exact = True
  */
+    goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":25
- *         raise NotImplementedError()
+  /* "alpha_complex_periodic.pyx":28
+ *         exact = True
  *     else:
  *         raise ValueError("Invalid value for argument precision")             # <<<<<<<<<<<<<<
  * 
- *     return _calc_persistence(coords, coeff_field, min_persistence, boxsize)
+ *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 25, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 25, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_Raise(__pyx_t_4, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_L4:;
 
-  /* "alpha_complex_periodic.pyx":27
+  /* "alpha_complex_periodic.pyx":30
  *         raise ValueError("Invalid value for argument precision")
  * 
- *     return _calc_persistence(coords, coeff_field, min_persistence, boxsize)             # <<<<<<<<<<<<<<
+ *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_boxsize); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
   try {
-    __pyx_t_5 = calc_persistence(__pyx_v_coords, __pyx_v_coeff_field, __pyx_v_min_persistence, __pyx_t_4);
+    __pyx_t_5 = calc_persistence(__pyx_v_coords, __pyx_v_coeff_field, __pyx_v_min_persistence, __pyx_v_fast, __pyx_v_exact, __pyx_v__boxsize);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 27, __pyx_L1_error)
+    __PYX_ERR(0, 30, __pyx_L1_error)
   }
-  __pyx_t_3 = __pyx_convert_vector_to_py_std_3a__3a_vector_3c_std_3a__3a_vector_3c_double_3e____3e___(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __pyx_t_4 = __pyx_convert_vector_to_py_std_3a__3a_vector_3c_std_3a__3a_vector_3c_double_3e____3e___(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "alpha_complex_periodic.pyx":9
+  /* "alpha_complex_periodic.pyx":10
  * 
  * 
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     if boxsize is None:
- *         boxsize = 0
+ *     cdef bool fast
+ *     cdef bool exact
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_AddTraceback("alpha_complex_periodic.calc_persistence", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_boxsize);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -2083,11 +2031,11 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Invalid_value_for_argument_preci, __pyx_k_Invalid_value_for_argument_preci, sizeof(__pyx_k_Invalid_value_for_argument_preci), 0, 1, 0, 0},
-  {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_alpha_complex_periodic, __pyx_k_alpha_complex_periodic, sizeof(__pyx_k_alpha_complex_periodic), 0, 0, 1, 1},
   {&__pyx_kp_s_alpha_complex_periodic_pyx, __pyx_k_alpha_complex_periodic_pyx, sizeof(__pyx_k_alpha_complex_periodic_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_boxsize, __pyx_k_boxsize, sizeof(__pyx_k_boxsize), 0, 0, 1, 1},
+  {&__pyx_n_s_boxsize_2, __pyx_k_boxsize_2, sizeof(__pyx_k_boxsize_2), 0, 0, 1, 1},
   {&__pyx_n_s_calc_persistence, __pyx_k_calc_persistence, sizeof(__pyx_k_calc_persistence), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_coeff_field, __pyx_k_coeff_field, sizeof(__pyx_k_coeff_field), 0, 0, 1, 1},
@@ -2106,8 +2054,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 19, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 28, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 61, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -2118,28 +2065,28 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "alpha_complex_periodic.pyx":25
- *         raise NotImplementedError()
+  /* "alpha_complex_periodic.pyx":28
+ *         exact = True
  *     else:
  *         raise ValueError("Invalid value for argument precision")             # <<<<<<<<<<<<<<
  * 
- *     return _calc_persistence(coords, coeff_field, min_persistence, boxsize)
+ *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Invalid_value_for_argument_preci); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Invalid_value_for_argument_preci); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "alpha_complex_periodic.pyx":9
+  /* "alpha_complex_periodic.pyx":10
  * 
  * 
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     if boxsize is None:
- *         boxsize = 0
+ *     cdef bool fast
+ *     cdef bool exact
  */
-  __pyx_tuple__2 = PyTuple_Pack(7, __pyx_n_s_coords, __pyx_n_s_coeff_field, __pyx_n_s_min_persistence, __pyx_n_s_precision, __pyx_n_s_boxsize, __pyx_n_s_fast, __pyx_n_s_exact); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(8, __pyx_n_s_coords, __pyx_n_s_coeff_field, __pyx_n_s_min_persistence, __pyx_n_s_precision, __pyx_n_s_boxsize, __pyx_n_s_fast, __pyx_n_s_exact, __pyx_n_s_boxsize_2); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_alpha_complex_periodic_pyx, __pyx_n_s_calc_persistence, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_alpha_complex_periodic_pyx, __pyx_n_s_calc_persistence, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2149,7 +2096,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2419,22 +2365,22 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "alpha_complex_periodic.pyx":9
+  /* "alpha_complex_periodic.pyx":10
  * 
  * 
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     if boxsize is None:
- *         boxsize = 0
+ *     cdef bool fast
+ *     cdef bool exact
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_22alpha_complex_periodic_1calc_persistence, NULL, __pyx_n_s_alpha_complex_periodic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_22alpha_complex_periodic_1calc_persistence, NULL, __pyx_n_s_alpha_complex_periodic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_persistence, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_persistence, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "alpha_complex_periodic.pyx":1
  * # cython: language_level=3             # <<<<<<<<<<<<<<
  * from libcpp.vector cimport vector
- * 
+ * from libcpp cimport bool
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2810,125 +2756,6 @@ return_ne:
 #endif
 }
 
-/* PyFunctionFastCall */
-#if CYTHON_FAST_PYCALL
-static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
-                                               PyObject *globals) {
-    PyFrameObject *f;
-    PyThreadState *tstate = __Pyx_PyThreadState_Current;
-    PyObject **fastlocals;
-    Py_ssize_t i;
-    PyObject *result;
-    assert(globals != NULL);
-    /* XXX Perhaps we should create a specialized
-       PyFrame_New() that doesn't take locals, but does
-       take builtins without sanity checking them.
-       */
-    assert(tstate != NULL);
-    f = PyFrame_New(tstate, co, globals, NULL);
-    if (f == NULL) {
-        return NULL;
-    }
-    fastlocals = __Pyx_PyFrame_GetLocalsplus(f);
-    for (i = 0; i < na; i++) {
-        Py_INCREF(*args);
-        fastlocals[i] = *args++;
-    }
-    result = PyEval_EvalFrameEx(f,0);
-    ++tstate->recursion_depth;
-    Py_DECREF(f);
-    --tstate->recursion_depth;
-    return result;
-}
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs) {
-    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
-    PyObject *globals = PyFunction_GET_GLOBALS(func);
-    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
-    PyObject *closure;
-#if PY_MAJOR_VERSION >= 3
-    PyObject *kwdefs;
-#endif
-    PyObject *kwtuple, **k;
-    PyObject **d;
-    Py_ssize_t nd;
-    Py_ssize_t nk;
-    PyObject *result;
-    assert(kwargs == NULL || PyDict_Check(kwargs));
-    nk = kwargs ? PyDict_Size(kwargs) : 0;
-    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
-        return NULL;
-    }
-    if (
-#if PY_MAJOR_VERSION >= 3
-            co->co_kwonlyargcount == 0 &&
-#endif
-            likely(kwargs == NULL || nk == 0) &&
-            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
-        if (argdefs == NULL && co->co_argcount == nargs) {
-            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
-            goto done;
-        }
-        else if (nargs == 0 && argdefs != NULL
-                 && co->co_argcount == Py_SIZE(argdefs)) {
-            /* function called with no arguments, but all parameters have
-               a default value: use default values as arguments .*/
-            args = &PyTuple_GET_ITEM(argdefs, 0);
-            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
-            goto done;
-        }
-    }
-    if (kwargs != NULL) {
-        Py_ssize_t pos, i;
-        kwtuple = PyTuple_New(2 * nk);
-        if (kwtuple == NULL) {
-            result = NULL;
-            goto done;
-        }
-        k = &PyTuple_GET_ITEM(kwtuple, 0);
-        pos = i = 0;
-        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
-            Py_INCREF(k[i]);
-            Py_INCREF(k[i+1]);
-            i += 2;
-        }
-        nk = i / 2;
-    }
-    else {
-        kwtuple = NULL;
-        k = NULL;
-    }
-    closure = PyFunction_GET_CLOSURE(func);
-#if PY_MAJOR_VERSION >= 3
-    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
-#endif
-    if (argdefs != NULL) {
-        d = &PyTuple_GET_ITEM(argdefs, 0);
-        nd = Py_SIZE(argdefs);
-    }
-    else {
-        d = NULL;
-        nd = 0;
-    }
-#if PY_MAJOR_VERSION >= 3
-    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
-                               args, (int)nargs,
-                               k, (int)nk,
-                               d, (int)nd, kwdefs, closure);
-#else
-    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
-                               args, (int)nargs,
-                               k, (int)nk,
-                               d, (int)nd, closure);
-#endif
-    Py_XDECREF(kwtuple);
-done:
-    Py_LeaveRecursiveCall();
-    return result;
-}
-#endif
-#endif
-
 /* PyObjectCall */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
@@ -2946,48 +2773,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
             "NULL result without error in PyObject_Call");
     }
     return result;
-}
-#endif
-
-/* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-/* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || __Pyx_CyFunction_Check(func)))
-#else
-    if (likely(PyCFunction_Check(func)))
-#endif
-    {
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
 }
 #endif
 

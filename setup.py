@@ -11,6 +11,7 @@ setup(
                 language="c++",
                 libraries=["gmp", "mpfr"],
                 extra_compile_args=["-O3"]
-            )
+            ),
+            annotate=True
         )
 )

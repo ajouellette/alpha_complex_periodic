@@ -15,6 +15,8 @@ Makefile
 # Executable
 alpha_complex_periodic_persistence
 
+*.html
+
 # Distribution / packaging
 .Python
 build/

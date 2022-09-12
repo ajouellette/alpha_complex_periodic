@@ -36,20 +36,65 @@ std::vector<typename AlphaComplex3d::Point_3> coords_to_points(const std::vector
 // returns 3D vector of persistence pairs
 // [dim_0, dim_1, dim_2]
 //   dim_i: [[birth_j, death_j], ...]
-std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector<std::vector<double>> &coords, int coeff_field, double min_persistence, double boxsize = 0.) {
+std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector<std::vector<double>> &coords, int coeff_field, double min_persistence, bool fast, bool exact, double boxsize = 0.) {
+
+    Gudhi::alpha_complex::complexity complexity = Gudhi::alpha_complex::complexity::SAFE;
+    if (exact) {
+        complexity = Gudhi::alpha_complex::complexity::EXACT;
+    } else if (fast) {
+        complexity = Gudhi::alpha_complex::complexity::FAST;
+    }
 
     Simplex_tree simplex_tree;
 
     if (boxsize > 0) {
-        using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::SAFE, false, true>;
-        auto points = coords_to_points<Alpha_complex_3d>(coords);
-        Alpha_complex_3d alpha_complex(points, 0, 0, 0, boxsize, boxsize, boxsize);
-        alpha_complex.create_complex(simplex_tree);
+        switch (complexity) {
+            case Gudhi::alpha_complex::complexity::FAST: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::FAST, false, true>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points, 0, 0, 0, boxsize, boxsize, boxsize);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+            case Gudhi::alpha_complex::complexity::SAFE: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::SAFE, false, true>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points, 0, 0, 0, boxsize, boxsize, boxsize);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+            case Gudhi::alpha_complex::complexity::EXACT: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::EXACT, false, true>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points, 0, 0, 0, boxsize, boxsize, boxsize);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+        }
     } else {
-        using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::SAFE, false, false>;
-        auto points = coords_to_points<Alpha_complex_3d>(coords);
-        Alpha_complex_3d alpha_complex(points);
-        alpha_complex.create_complex(simplex_tree);
+        switch (complexity) {
+            case Gudhi::alpha_complex::complexity::FAST: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::FAST, false, false>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+            case Gudhi::alpha_complex::complexity::SAFE: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::SAFE, false, false>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+            case Gudhi::alpha_complex::complexity::EXACT: {
+                using Alpha_complex_3d = Gudhi::alpha_complex::Alpha_complex_3d<Gudhi::alpha_complex::complexity::EXACT, false, false>;
+                auto points = coords_to_points<Alpha_complex_3d>(coords);
+                Alpha_complex_3d alpha_complex(points);
+                alpha_complex.create_complex(simplex_tree);
+                break;
+            }
+        }
     }
 
     int st_dimension = simplex_tree.dimension();
@@ -97,7 +142,7 @@ int main() {
         std::cout << "\t" << points[i][0] << ", " << points[i][1] << ", " << points[i][2] << std::endl;
     }
 
-    std::vector<std::vector<std::vector<double>>> persistence_pairs = calc_persistence(points, 2, 0.);
+    std::vector<std::vector<std::vector<double>>> persistence_pairs = calc_persistence(points, 2, 0., false, false);
 
         for (std::size_t dim = 0; dim < persistence_pairs.size(); dim++) {
         std::cout << "H" << dim << std::endl;
