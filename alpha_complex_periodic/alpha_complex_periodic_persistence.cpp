@@ -47,6 +47,8 @@ std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector
 
     Simplex_tree simplex_tree;
 
+    // Alpha complex can be periodic/non-periodic and safe/fast/exact
+    // complexity affects computation of filtration values
     if (boxsize > 0) {
         switch (complexity) {
             case Gudhi::alpha_complex::complexity::FAST: {
