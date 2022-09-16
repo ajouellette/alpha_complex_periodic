@@ -3,7 +3,7 @@ from Cython.Build import cythonize
 
 setup(
         name="alpha_complex_periodic",
-        version="0.1.0"
+        version="0.1.0",
         packages=["alpha_complex_periodic"],
         author="Aaron Ouellette",
         url="https://github.com/ajouellette/alpha_complex_periodic",
