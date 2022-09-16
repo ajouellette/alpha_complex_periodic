@@ -1293,6 +1293,8 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
+/* Module declarations from 'cython' */
+
 /* Module declarations from 'libcpp.vector' */
 
 /* Module declarations from 'libcpp' */
@@ -1356,17 +1358,18 @@ static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_codeobj__3;
 /* Late includes */
 
-/* "alpha_complex_periodic.pyx":10
+/* "alpha_complex_periodic.pyx":12
  * 
- * 
+ * @cython.embedsignature(True)
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     cdef bool fast
- *     cdef bool exact
+ *     """Calculate persistent homology for a set of points in 3D using alpha shapes.
+ * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_22alpha_complex_periodic_1calc_persistence = {"calc_persistence", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_22alpha_complex_periodic_1calc_persistence, METH_VARARGS|METH_KEYWORDS, 0};
+static char __pyx_doc_22alpha_complex_periodic_calc_persistence[] = "calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision=u'safe', boxsize=None)\nCalculate persistent homology for a set of points in 3D using alpha shapes.\n\n    Returns array (python list) persistence pairs in dimensions 0-2.\n    ";
+static PyMethodDef __pyx_mdef_22alpha_complex_periodic_1calc_persistence = {"calc_persistence", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_22alpha_complex_periodic_1calc_persistence, METH_VARARGS|METH_KEYWORDS, __pyx_doc_22alpha_complex_periodic_calc_persistence};
 static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   std::vector<std::vector<double> >  __pyx_v_coords;
   int __pyx_v_coeff_field;
@@ -1432,7 +1435,7 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_persistence") < 0)) __PYX_ERR(0, 10, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_persistence") < 0)) __PYX_ERR(0, 12, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1449,14 +1452,14 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_coords = __pyx_convert_vector_from_py_std_3a__3a_vector_3c_double_3e___(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+    __pyx_v_coords = __pyx_convert_vector_from_py_std_3a__3a_vector_3c_double_3e___(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
     if (values[1]) {
-      __pyx_v_coeff_field = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_coeff_field == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+      __pyx_v_coeff_field = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_coeff_field == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
     } else {
       __pyx_v_coeff_field = ((int)2);
     }
     if (values[2]) {
-      __pyx_v_min_persistence = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_min_persistence == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+      __pyx_v_min_persistence = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_min_persistence == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
     } else {
       __pyx_v_min_persistence = ((double)0.0);
     }
@@ -1465,7 +1468,7 @@ static PyObject *__pyx_pw_22alpha_complex_periodic_1calc_persistence(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_persistence", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 10, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_persistence", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 12, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("alpha_complex_periodic.calc_persistence", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1494,7 +1497,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_persistence", 0);
 
-  /* "alpha_complex_periodic.pyx":13
+  /* "alpha_complex_periodic.pyx":19
  *     cdef bool fast
  *     cdef bool exact
  *     cdef double _boxsize = 0.             # <<<<<<<<<<<<<<
@@ -1503,7 +1506,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
   __pyx_v__boxsize = 0.;
 
-  /* "alpha_complex_periodic.pyx":15
+  /* "alpha_complex_periodic.pyx":21
  *     cdef double _boxsize = 0.
  * 
  *     if boxsize is not None:             # <<<<<<<<<<<<<<
@@ -1514,17 +1517,17 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":16
+    /* "alpha_complex_periodic.pyx":22
  * 
  *     if boxsize is not None:
  *         _boxsize = boxsize             # <<<<<<<<<<<<<<
  * 
  *     if precision == "safe":
  */
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_boxsize); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 16, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_boxsize); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L1_error)
     __pyx_v__boxsize = __pyx_t_3;
 
-    /* "alpha_complex_periodic.pyx":15
+    /* "alpha_complex_periodic.pyx":21
  *     cdef double _boxsize = 0.
  * 
  *     if boxsize is not None:             # <<<<<<<<<<<<<<
@@ -1533,17 +1536,17 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
   }
 
-  /* "alpha_complex_periodic.pyx":18
+  /* "alpha_complex_periodic.pyx":24
  *         _boxsize = boxsize
  * 
  *     if precision == "safe":             # <<<<<<<<<<<<<<
  *         fast = False
  *         exact = False
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_safe, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_safe, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 24, __pyx_L1_error)
   if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":19
+    /* "alpha_complex_periodic.pyx":25
  * 
  *     if precision == "safe":
  *         fast = False             # <<<<<<<<<<<<<<
@@ -1552,7 +1555,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_fast = 0;
 
-    /* "alpha_complex_periodic.pyx":20
+    /* "alpha_complex_periodic.pyx":26
  *     if precision == "safe":
  *         fast = False
  *         exact = False             # <<<<<<<<<<<<<<
@@ -1561,7 +1564,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_exact = 0;
 
-    /* "alpha_complex_periodic.pyx":18
+    /* "alpha_complex_periodic.pyx":24
  *         _boxsize = boxsize
  * 
  *     if precision == "safe":             # <<<<<<<<<<<<<<
@@ -1571,17 +1574,17 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
     goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":21
+  /* "alpha_complex_periodic.pyx":27
  *         fast = False
  *         exact = False
  *     elif precision == "fast":             # <<<<<<<<<<<<<<
  *         fast = True
  *         exact = False
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_fast, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_fast, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 27, __pyx_L1_error)
   if (__pyx_t_2) {
 
-    /* "alpha_complex_periodic.pyx":22
+    /* "alpha_complex_periodic.pyx":28
  *         exact = False
  *     elif precision == "fast":
  *         fast = True             # <<<<<<<<<<<<<<
@@ -1590,7 +1593,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_fast = 1;
 
-    /* "alpha_complex_periodic.pyx":23
+    /* "alpha_complex_periodic.pyx":29
  *     elif precision == "fast":
  *         fast = True
  *         exact = False             # <<<<<<<<<<<<<<
@@ -1599,7 +1602,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_exact = 0;
 
-    /* "alpha_complex_periodic.pyx":21
+    /* "alpha_complex_periodic.pyx":27
  *         fast = False
  *         exact = False
  *     elif precision == "fast":             # <<<<<<<<<<<<<<
@@ -1609,17 +1612,17 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
     goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":24
+  /* "alpha_complex_periodic.pyx":30
  *         fast = True
  *         exact = False
  *     elif precision == "exact":             # <<<<<<<<<<<<<<
  *         fast = False
  *         exact = True
  */
-  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_exact, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_v_precision, __pyx_n_u_exact, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 30, __pyx_L1_error)
   if (likely(__pyx_t_2)) {
 
-    /* "alpha_complex_periodic.pyx":25
+    /* "alpha_complex_periodic.pyx":31
  *         exact = False
  *     elif precision == "exact":
  *         fast = False             # <<<<<<<<<<<<<<
@@ -1628,7 +1631,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_fast = 0;
 
-    /* "alpha_complex_periodic.pyx":26
+    /* "alpha_complex_periodic.pyx":32
  *     elif precision == "exact":
  *         fast = False
  *         exact = True             # <<<<<<<<<<<<<<
@@ -1637,7 +1640,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  */
     __pyx_v_exact = 1;
 
-    /* "alpha_complex_periodic.pyx":24
+    /* "alpha_complex_periodic.pyx":30
  *         fast = True
  *         exact = False
  *     elif precision == "exact":             # <<<<<<<<<<<<<<
@@ -1647,7 +1650,7 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
     goto __pyx_L4;
   }
 
-  /* "alpha_complex_periodic.pyx":28
+  /* "alpha_complex_periodic.pyx":34
  *         exact = True
  *     else:
  *         raise ValueError("Invalid value for argument precision")             # <<<<<<<<<<<<<<
@@ -1655,15 +1658,15 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
  *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 34, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 28, __pyx_L1_error)
+    __PYX_ERR(0, 34, __pyx_L1_error)
   }
   __pyx_L4:;
 
-  /* "alpha_complex_periodic.pyx":30
+  /* "alpha_complex_periodic.pyx":36
  *         raise ValueError("Invalid value for argument precision")
  * 
  *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)             # <<<<<<<<<<<<<<
@@ -1673,20 +1676,20 @@ static PyObject *__pyx_pf_22alpha_complex_periodic_calc_persistence(CYTHON_UNUSE
     __pyx_t_5 = calc_persistence(__pyx_v_coords, __pyx_v_coeff_field, __pyx_v_min_persistence, __pyx_v_fast, __pyx_v_exact, __pyx_v__boxsize);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 30, __pyx_L1_error)
+    __PYX_ERR(0, 36, __pyx_L1_error)
   }
-  __pyx_t_4 = __pyx_convert_vector_to_py_std_3a__3a_vector_3c_std_3a__3a_vector_3c_double_3e____3e___(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_vector_to_py_std_3a__3a_vector_3c_std_3a__3a_vector_3c_double_3e____3e___(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "alpha_complex_periodic.pyx":10
+  /* "alpha_complex_periodic.pyx":12
  * 
- * 
+ * @cython.embedsignature(True)
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     cdef bool fast
- *     cdef bool exact
+ *     """Calculate persistent homology for a set of points in 3D using alpha shapes.
+ * 
  */
 
   /* function exit code */
@@ -2185,7 +2188,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 34, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 61, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -2196,28 +2199,28 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "alpha_complex_periodic.pyx":28
+  /* "alpha_complex_periodic.pyx":34
  *         exact = True
  *     else:
  *         raise ValueError("Invalid value for argument precision")             # <<<<<<<<<<<<<<
  * 
  *     return _calc_persistence(coords, coeff_field, min_persistence, fast, exact, _boxsize)
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Invalid_value_for_argument_preci); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Invalid_value_for_argument_preci); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "alpha_complex_periodic.pyx":10
+  /* "alpha_complex_periodic.pyx":12
  * 
- * 
+ * @cython.embedsignature(True)
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     cdef bool fast
- *     cdef bool exact
+ *     """Calculate persistent homology for a set of points in 3D using alpha shapes.
+ * 
  */
-  __pyx_tuple__2 = PyTuple_Pack(8, __pyx_n_s_coords, __pyx_n_s_coeff_field, __pyx_n_s_min_persistence, __pyx_n_s_precision, __pyx_n_s_boxsize, __pyx_n_s_fast, __pyx_n_s_exact, __pyx_n_s_boxsize_2); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(8, __pyx_n_s_coords, __pyx_n_s_coeff_field, __pyx_n_s_min_persistence, __pyx_n_s_precision, __pyx_n_s_boxsize, __pyx_n_s_fast, __pyx_n_s_exact, __pyx_n_s_boxsize_2); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_alpha_complex_periodic_alpha_com, __pyx_n_s_calc_persistence, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_alpha_complex_periodic_alpha_com, __pyx_n_s_calc_persistence, 12, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2496,22 +2499,22 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "alpha_complex_periodic.pyx":10
+  /* "alpha_complex_periodic.pyx":12
  * 
- * 
+ * @cython.embedsignature(True)
  * def calc_persistence(vector[vector[double]] coords, int coeff_field=2, double min_persistence=0, precision="safe", boxsize=None):             # <<<<<<<<<<<<<<
- *     cdef bool fast
- *     cdef bool exact
+ *     """Calculate persistent homology for a set of points in 3D using alpha shapes.
+ * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_22alpha_complex_periodic_1calc_persistence, NULL, __pyx_n_s_alpha_complex_periodic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_22alpha_complex_periodic_1calc_persistence, NULL, __pyx_n_s_alpha_complex_periodic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_persistence, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_persistence, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "alpha_complex_periodic.pyx":1
  * # cython: language_level=3             # <<<<<<<<<<<<<<
+ * import cython
  * from libcpp.vector cimport vector
- * from libcpp cimport bool
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
