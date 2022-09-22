@@ -24,9 +24,9 @@ template <typename AlphaComplex3d>
 std::vector<typename AlphaComplex3d::Point_3> coords_to_points(const std::vector<std::vector<double>> &coords) {
     using Point = typename AlphaComplex3d::Point_3;
 
-    std::vector<Point> points;
+    std::vector<Point> points(coords.size());
     for (std::size_t i = 0; i < coords.size(); i++) {
-        points.push_back(Point(coords[i][0], coords[i][1], coords[i][2]));
+        points[i] = Point(coords[i][0], coords[i][1], coords[i][2]);
     }
 
     return points;
@@ -106,17 +106,16 @@ std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector
     pcoh.init_coefficients(coeff_field);
     pcoh.compute_persistent_cohomology(min_persistence);
 
-    std::vector<std::vector<std::vector<double>>> persistence_pairs;
+    std::vector<std::vector<std::vector<double>>> persistence_pairs(st_dimension);
     std::vector<std::pair<Filtration_value, Filtration_value>> pairs_d;
-    std::vector<std::vector<double>> pairs_d_vec;
     for (int dim = 0; dim < st_dimension; dim++) {
         pairs_d = pcoh.intervals_in_dimension(dim);
-        pairs_d_vec.clear();
+        std::vector<std::vector<double>> pairs_d_vec(pairs_d.size());
         for (std::size_t i = 0; i < pairs_d.size(); i++) {
             // take sqrt to get alpha instead of the filtration value (alpha^2)
-            pairs_d_vec.push_back({sqrt(pairs_d[i].first), sqrt(pairs_d[i].second)});
+            pairs_d_vec[i] = {sqrt(pairs_d[i].first), sqrt(pairs_d[i].second)};
         }
-        persistence_pairs.push_back(pairs_d_vec);
+        persistence_pairs[dim] = pairs_d_vec;
     }
 
     return persistence_pairs;
@@ -125,8 +124,8 @@ std::vector<std::vector<std::vector<double>>> calc_persistence(const std::vector
 
 int main() {
     // For some reason need ~ >50 points for periodic triangulation to work
-    int N_points = 100;
-    double boxsize = 1;
+    int N_points = 15000;
+    double boxsize = 5;
 
     std::default_random_engine generator;
     generator.seed(10);
@@ -144,7 +143,7 @@ int main() {
         std::cout << "\t" << points[i][0] << ", " << points[i][1] << ", " << points[i][2] << std::endl;
     }
 
-    std::vector<std::vector<std::vector<double>>> persistence_pairs = calc_persistence(points, 2, 0., false, false);
+    std::vector<std::vector<std::vector<double>>> persistence_pairs = calc_persistence(points, 2, 0., false, false, boxsize);
 
         for (std::size_t dim = 0; dim < persistence_pairs.size(); dim++) {
         std::cout << "H" << dim << std::endl;
