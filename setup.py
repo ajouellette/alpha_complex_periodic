@@ -12,7 +12,7 @@ setup(
         setup_requires=["Cython>=0.29"],
         ext_modules=cythonize(
             Extension(
-                "alpha_complex_periodic",
+                "alpha_complex_periodic.persistence",
                 sources=["alpha_complex_periodic/alpha_complex_periodic.pyx",
                     "alpha_complex_periodic/alpha_complex_periodic_persistence.cpp"],
                 language="c++",
