@@ -6,10 +6,6 @@
         "depends": [
             "alpha_complex_periodic/alpha_complex_periodic_persistence.h"
         ],
-        "extra_compile_args": [
-            "-O3",
-            "-march=native"
-        ],
         "include_dirs": [
             "alpha_complex_periodic"
         ],

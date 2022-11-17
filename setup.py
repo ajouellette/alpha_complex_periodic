@@ -17,7 +17,7 @@ setup(
                     "alpha_complex_periodic/alpha_complex_periodic_persistence.cpp"],
                 language="c++",
                 libraries=["gmp", "mpfr"],
-                extra_compile_args=["-O3", "-march=native"]
+                #extra_compile_args=["-O3", "-march=native"]
             ),
             annotate=True
         )
